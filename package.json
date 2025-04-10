@@ -1,20 +1,19 @@
 {
-  "name": "servidorer-con-node-js-y-express-js",
+  "name": "proyectoconnode",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "dev": "nodemon src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Juan David Molina Juspian",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "colors": "^1.4.0",
     "dotenv": "^16.4.7",
-    "express": "^5.1.0",
+    "express": "^4.21.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.14.0",
     "sequelize-typescript": "^2.1.6"
@@ -24,6 +23,6 @@
     "@types/morgan": "^1.9.9",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.2"
   }
 }

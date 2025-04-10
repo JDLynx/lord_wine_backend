@@ -1,20 +1,25 @@
 import express from 'express';
 import colors from 'colors';
 import morgan from 'morgan';
-import {pool} from './config/db';
+import sequelize from './config/db';
 import router from './router';
 
 async function connectDB()
 {
     try
     {
-        const connection=await pool.getConnection();
+        await sequelize.authenticate();
         console.log(colors.blue.bold('Conexión exitosa a la BD'));
 
-        const [rows, fields]=await connection.query('SELECT * FROM Administrador LIMIT 5');
-        console.log('Datos de ejemplo:', rows);
-
-        connection.release();
+        try
+        {
+            const[results, metadata]=await sequelize.query('SELECT * FROM Administrador LIMIT 5');
+            console.log('Datos de ejemplo:', results);
+        }
+        catch(error)
+        {
+            console.error('Error al ejecutar la consulta:', error);
+        }
     }
     catch(error)
     {
