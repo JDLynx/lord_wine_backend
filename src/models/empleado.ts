@@ -1,11 +1,13 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import Administrador from './administrador';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, HasMany, HasOne } from 'sequelize-typescript';
+import { Administrador } from './administrador';
+import { Pedido } from './pedido';
+import { TiendaFisica } from './tienda_fisica';
+import { InventarioTienda } from './inventario_tienda';
 
-@Table({ tableName: 'Empleado', timestamps: false })
-export class Empleado extends Model
+@Table({ tableName: 'Empleado' }) export class Empleado extends Model<Empleado>
 {
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    emplCodEmpleado!: string;
+    @Column({ primaryKey: true, autoIncrement: true })
+    emplCodEmpleado!: number;
 
     @Column({ type: DataType.STRING(50), allowNull: false })
     emplIdEmpleado!: string;
@@ -19,15 +21,24 @@ export class Empleado extends Model
     @Column({ type: DataType.STRING(50), allowNull: false })
     emplTelefono!: string;
 
-    @Column({ type: DataType.STRING(50), allowNull: false })
+    @Column({ type: DataType.STRING(50), allowNull: false, unique: true })
     emplCorreoElectronico!: string;
 
     @ForeignKey(() => Administrador)
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    adminCodAdministrador!: string;
+    @Column({ allowNull: false })
+    adminCodAdministrador!: number;
 
     @BelongsTo(() => Administrador)
     administrador!: Administrador;
+
+    @HasMany(() => Pedido)
+    pedidos!: Pedido[];
+
+    @HasOne(() => TiendaFisica)
+    tiendaFisica!: TiendaFisica;
+
+    @HasOne(() => InventarioTienda)
+    inventarioTienda!: InventarioTienda;
 }
 
 export default Empleado;

@@ -2,7 +2,7 @@ import express from 'express';
 import colors from 'colors';
 import morgan from 'morgan';
 import sequelize from './config/db';
-import router from './router';
+import administradorRouter from './routes/administradorRouter'
 
 async function connectDB()
 {
@@ -29,9 +29,8 @@ async function connectDB()
 }
 
 connectDB();
-
 const app = express();
-
-app.use('/', router);
-
+app.use(morgan('dev'));
+app.use(express.json());
+app.use('/api/administrador', administradorRouter)
 export default app;

@@ -1,21 +1,28 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import InventarioGeneral from './inventario_general';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, HasMany, HasOne } from 'sequelize-typescript';
+import { InventarioGeneral } from './inventario_general';
+import { Producto } from './producto';
+import { Empleado } from './empleado';
 
-@Table({ tableName: 'InventarioTienda', timestamps: false })
-export class InventarioTienda extends Model
+@Table({ tableName: 'InventarioTienda' }) export class InventarioTienda extends Model<InventarioTienda>
 {
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    invTienIdInventarioTienda!: string;
+    @Column({ primaryKey: true, autoIncrement: true })
+    invTienIdInventarioTienda!: number;
 
     @Column({ type: DataType.INTEGER, allowNull: false })
     invTienCantidadDisponible!: number;
 
     @ForeignKey(() => InventarioGeneral)
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    invGenIdInventarioGeneral!: string;
+    @Column({ allowNull: false })
+    invGenIdInventarioGeneral!: number;
 
     @BelongsTo(() => InventarioGeneral)
     inventarioGeneral!: InventarioGeneral;
+
+    @HasMany(() => Producto)
+    productos!: Producto[];
+
+    @HasOne(() => Empleado)
+    empleado!: Empleado;
 }
 
 export default InventarioTienda;

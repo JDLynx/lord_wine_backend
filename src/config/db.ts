@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const sequelize=new Sequelize(
+export const sequelize=new Sequelize
+(
     {
         database: process.env.DB_DATABASE as string,
         username: process.env.DB_USER as string,
@@ -11,6 +12,8 @@ const sequelize=new Sequelize(
         host: process.env.DB_HOST as string,
         port: parseInt(process.env.DB_PORT as string, 10),
         dialect: 'mysql',
+        models: [__dirname + '../models/**/*.ts'],
+        logging: false,
         pool:
         {
             max: 10,

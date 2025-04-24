@@ -1,13 +1,24 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, ForeignKey, BelongsTo } from 'sequelize-typescript';
+import { InventarioTienda } from './inventario_tienda';
+import { Administrador } from './administrador';
 
-@Table({ tableName: 'InventarioGeneral', timestamps: false })
-export class InventarioGeneral extends Model
+@Table({ tableName: 'InventarioGeneral' }) export class InventarioGeneral extends Model<InventarioGeneral>
 {
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    invGenIdInventarioGeneral!: string;
+    @Column({ primaryKey: true, autoIncrement: true })
+    invGenIdInventarioGeneral!: number;
 
     @Column({ type: DataType.INTEGER, allowNull: false })
     invGenCantidadTotal!: number;
+
+    @HasMany(() => InventarioTienda)
+    inventariosTienda!: InventarioTienda[];
+
+    @ForeignKey(() => Administrador)
+    @Column
+    adminCodAdministrador!: number;
+
+    @BelongsTo(() => Administrador)
+    administrador!: Administrador;
 }
 
 export default InventarioGeneral;

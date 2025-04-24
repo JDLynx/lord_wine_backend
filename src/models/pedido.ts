@@ -1,16 +1,16 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import Cliente from './cliente';
-import Empleado from './empleado';
-import ServicioEmpresarial from './servicio_empresarial';
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, HasMany } from 'sequelize-typescript';
+import { Cliente } from './cliente';
+import { Empleado } from './empleado';
+import { ServicioEmpresarial } from './servicio_empresarial';
+import { DetallePedido } from './detalle_pedido';
 
-@Table({ tableName: 'Pedido', timestamps: false })
-export class Pedido extends Model
+@Table({ tableName: 'Pedido' }) export class Pedido extends Model<Pedido>
 {
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    pedIdPedido!: string;
+    @Column({ primaryKey: true, autoIncrement: true })
+    pedIdPedido!: number;
 
     @Column({ type: DataType.DATE, allowNull: false })
-    pedIdFecha!: Date;
+    pedFecha!: Date;
 
     @Column({ type: DataType.INTEGER, allowNull: false })
     pedTotal!: number;
@@ -19,25 +19,28 @@ export class Pedido extends Model
     pedEstado!: string;
 
     @ForeignKey(() => Cliente)
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    clCodCliente!: string;
-
-    @ForeignKey(() => Empleado)
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    emplCodEmpleado!: string;
-
-    @ForeignKey(() => ServicioEmpresarial)
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    serIdServicio!: string;
+    @Column({ allowNull: false })
+    clCodCliente!: number;
 
     @BelongsTo(() => Cliente)
     cliente!: Cliente;
 
+    @ForeignKey(() => Empleado)
+    @Column({ allowNull: false })
+    emplCodEmpleado!: number;
+
     @BelongsTo(() => Empleado)
     empleado!: Empleado;
 
+    @ForeignKey(() => ServicioEmpresarial)
+    @Column({ allowNull: false })
+    serIdServicioEmpresarial!: number;
+
     @BelongsTo(() => ServicioEmpresarial)
     servicioEmpresarial!: ServicioEmpresarial;
+
+    @HasMany(() => DetallePedido)
+    detallesPedido!: DetallePedido[];
 }
 
 export default Pedido;

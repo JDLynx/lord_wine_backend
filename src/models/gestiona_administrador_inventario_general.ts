@@ -1,23 +1,17 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import Administrador from './administrador';
-import InventarioGeneral from './inventario_general';
+import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
+import { Administrador } from './administrador';
+import { InventarioGeneral } from './inventario_general';
 
 @Table({ tableName: 'GestionaAdministradorInventarioGeneral', timestamps: false })
-export class GestionaAdministradorInventarioGeneral extends Model
+export class GestionaAdministradorInventarioGeneral extends Model<GestionaAdministradorInventarioGeneral>
 {
     @ForeignKey(() => Administrador)
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    adminCodAdministrador!: string;
+    @Column
+    adminCodAdministrador!: number;
 
     @ForeignKey(() => InventarioGeneral)
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    invGenIdInventarioGeneral!: string;
-
-    @BelongsTo(() => Administrador)
-    administrador!: Administrador;
-
-    @BelongsTo(() => InventarioGeneral)
-    inventarioGeneral!: InventarioGeneral;
+    @Column
+    invGenIdInventarioGeneral!: number;
 }
 
 export default GestionaAdministradorInventarioGeneral;

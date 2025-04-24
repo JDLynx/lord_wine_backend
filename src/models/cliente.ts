@@ -1,10 +1,11 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasOne, HasMany } from 'sequelize-typescript';
+import { CarritoDeCompras } from './carrito_de_compras';
+import { Pedido } from './pedido';
 
-@Table({ tableName: 'Cliente', timestamps: false })
-export class Cliente extends Model
+@Table({ tableName: 'Cliente' }) export class Cliente extends Model<Cliente>
 {
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    clCodCliente!: string;
+    @Column({ primaryKey: true, autoIncrement: true })
+    clCodCliente!: number;
 
     @Column({ type: DataType.STRING(50), allowNull: false })
     clIdCliente!: string;
@@ -18,8 +19,14 @@ export class Cliente extends Model
     @Column({ type: DataType.STRING(50), allowNull: false })
     clTelefono!: string;
 
-    @Column({ type: DataType.STRING(50), allowNull: false })
+    @Column({ type: DataType.STRING(50), allowNull: false, unique: true })
     clCorreoElectronico!: string;
+
+    @HasOne(() => CarritoDeCompras)
+    carritoDeCompras!: CarritoDeCompras;
+
+    @HasMany(() => Pedido)
+    pedidos!: Pedido[];
 }
 
 export default Cliente;

@@ -1,25 +1,20 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, HasMany, HasOne } from 'sequelize-typescript';
+import { DetalleCarrito } from './detalle_carrito';
+import { Cliente } from './cliente';
 
-@Table({ tableName: 'Administrador', timestamps: false })
-export class Administrador extends Model
+@Table({ tableName: 'CarritoDeCompras' }) export class CarritoDeCompras extends Model<CarritoDeCompras>
 {
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    adminCodAdministrador!: string;
+    @Column({ primaryKey: true, autoIncrement: true })
+    carIdCarritoDeCompras!: number;
 
     @Column({ type: DataType.STRING(50), allowNull: false })
-    adminIdAdministrador!: string;
+    carEstado!: string;
 
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    adminNombre!: string;
+    @HasMany(() => DetalleCarrito)
+    detallesCarrito!: DetalleCarrito[];
 
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    adminDireccion!: string;
-
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    adminTelefono!: string;
-
-    @Column({ type: DataType.STRING(50), allowNull: false })
-    adminCorreoElectronico!: string;
+    @HasOne(() => Cliente)
+    cliente!: Cliente;
 }
 
-export default Administrador;
+export default CarritoDeCompras;

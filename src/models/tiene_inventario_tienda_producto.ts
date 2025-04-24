@@ -1,23 +1,16 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import InventarioTienda from './inventario_tienda';
-import Producto from './producto';
+import { Table, Column, Model, ForeignKey } from 'sequelize-typescript';
+import { InventarioTienda } from './inventario_tienda';
+import { Producto } from './producto';
 
-@Table({ tableName: 'TieneInventarioTiendaProducto', timestamps: false })
-export class TieneInventarioTiendaProducto extends Model
+@Table({ tableName: 'TieneInventarioTiendaProducto', timestamps: false }) export class TieneInventarioTiendaProducto extends Model<TieneInventarioTiendaProducto>
 {
     @ForeignKey(() => InventarioTienda)
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    invTienIdInventarioTienda!: string;
+    @Column
+    invTienIdInventarioTienda!: number;
 
     @ForeignKey(() => Producto)
-    @Column({ primaryKey: true, type: DataType.STRING(50), allowNull: false })
-    prodCodProducto!: string;
-
-    @BelongsTo(() => InventarioTienda)
-    inventarioTienda!: InventarioTienda;
-
-    @BelongsTo(() => Producto)
-    producto!: Producto;
+    @Column
+    prodIdProducto!: number;
 }
 
 export default TieneInventarioTiendaProducto;
