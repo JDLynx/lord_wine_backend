@@ -1,19 +1,19 @@
 import express from 'express';
 import colors from 'colors';
 import morgan from 'morgan';
-import sequelize from './config/db';
-import administradorRouter from './routes/administradorRouter'
+import {db} from './config/db';
+import administradorRouter from './routes/administrador_Router'
 
 async function connectDB()
 {
     try
     {
-        await sequelize.authenticate();
+        await db.authenticate();
         console.log(colors.blue.bold('Conexión exitosa a la BD'));
 
         try
         {
-            const[results, metadata]=await sequelize.query('SELECT * FROM Administrador LIMIT 5');
+            const[results, metadata]=await db.query('SELECT * FROM Administrador LIMIT 5');
             console.log('Datos de ejemplo:', results);
         }
         catch(error)

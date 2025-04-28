@@ -1,5 +1,5 @@
 import server from './server';
-import sequelize from './config/db';
+import {db} from './config/db';
 
 const port=process.env.PORT || 3000;
 
@@ -7,10 +7,10 @@ async function startServer()
 {
   try
   {
-    await sequelize.authenticate();
+    await db.authenticate();
     console.log('Conexión a la base de datos establecida.');
 
-    await sequelize.sync();
+    await db.sync();
     console.log('Base de datos y modelos sincronizados.')
     
     server.listen(port, ()=>

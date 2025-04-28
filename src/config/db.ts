@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const sequelize=new Sequelize
+export const db=new Sequelize
 (
     {
         database: process.env.DB_DATABASE as string,
@@ -24,4 +24,4 @@ export const sequelize=new Sequelize
     }
 );
 
-export default sequelize;
+export default db;
