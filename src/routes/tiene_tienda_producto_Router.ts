@@ -1,10 +1,8 @@
-import type { Request, Response } from "express";
+import { Router } from 'express';
+import { Tiene_tienda_producto_Controller } from '../controllers/Tiene_tienda_producto_Controller';
 
-export class Tiene_tienda_producto_Controller
-{
-    static getAll=async(req: Request, res: Response)=>
-        {
-            console.log('Desde /api/tiene_tienda_producto');
-            res.json({ mensaje: 'Ruta de tiene tienda producto funcionando correctamente' });
-        };
-}
+const router=Router();
+
+router.get('/', Tiene_tienda_producto_Controller.getAll);
+
+export default router;
