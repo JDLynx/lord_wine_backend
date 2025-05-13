@@ -54,7 +54,6 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use('/api/administrador', administradorRouter);
-app.use('/api/administrador', administradorRouter);
 app.use('/api/carrito_de_compras', carrito_de_compras_Router);
 app.use('/api/categoria', categoria_Router);
 app.use('/api/cliente', cliente_Router);

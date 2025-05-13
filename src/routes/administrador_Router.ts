@@ -3,6 +3,10 @@ import { AdministradorControllers } from '../controllers/Administrador_Controlle
 
 const router=Router();
 
-router.get('/', AdministradorControllers.getAll);
+router.get('/', AdministradorControllers.getadministradorAll);
+router.get('/:id', AdministradorControllers.getAdministradorId)
+router.post('/', AdministradorControllers.crearAdministrador)
+router.put('/:id', AdministradorControllers.actualziarAcudienteId)
+router.delete('/:id', AdministradorControllers.eliminarAdministradorId)
 
 export default router;
